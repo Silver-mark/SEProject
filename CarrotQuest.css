@@ -1,0 +1,367 @@
+/* Import custom font for the game */
+@import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
+
+/* Basic page setup and global styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Bubblegum Sans', cursive;
+    background-color: lavenderblush;
+}
+
+/* Screen layout styles - controls positioning and display of main game screens */
+#menu_screen, #instruction_screen, #highScore_screen, #gameOverScreen, #board {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transition: all 0.5s ease;
+    display: none; 
+}
+
+/* Individual screen background settings */
+#menu_screen {
+    display: flex; 
+    background-image: url('./Menu_Screen.png');
+}
+
+#instruction_screen {
+    background-image: url('./instruction_background.png');
+}
+
+#highScore_screen {
+    background-image: url('./High_Score_Background.png');
+}
+
+/* Game Over screen specific styles */
+#gameOverScreen {
+    background-image: url('./GameOver_Screen.png');
+    text-align: center;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameOverScreen h2 {
+    margin-bottom: 30px;
+}
+
+#gameOverScreen p {
+    margin-bottom: 40px;
+}
+
+#gameOverScreen button {
+    display: block;
+    width: 250px;
+    margin: 15px auto;
+}
+
+/* Game board canvas styles */
+#board {
+    background-image: url('./CarrotQuestBackground.mp4');
+    z-index: 2;
+}
+
+/* Title animation and styling */
+.title {
+    color: deeppink;
+    font-size: 10em;
+    text-shadow: 3px 3px 0px white, 6px 6px 0px lightpink;
+    margin: 20px 0;
+    animation: bounce 2.5s infinite;
+}
+
+/* Bounce animation keyframes for title */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Button styling and hover effects */
+button {
+    padding: 15px 30px;
+    font-size: 24px;
+    background-color: lightpink;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: deeppink;
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Content container styling */
+.screen-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Text styling for headings */
+h2 {
+    color: deeppink;
+    font-size: 4.5em;
+    margin-bottom: 20px;
+}
+
+/* Text styling for paragraphs and list items */
+p, li {
+    color: black;
+    font-size: 2em;
+    line-height: 1.6;
+}
+
+/* High scores list styling */
+#highScoresList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#highScoresList li {
+    margin: 10px 0;
+    font-size: 2em;
+    color: deeppink;
+}
+
+/* Score display styling */
+#scoreDisplay {
+    font-size: 1.5em;
+    color: deeppink;
+    margin: 20px 0;
+}
+
+/* Pause menu overlay styling */
+#pauseMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 3;
+}
+
+#pauseMenu h2 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Pause instruction screen styling */
+#pauseInstructionScreen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    display: none;
+    z-index: 4;
+}
+
+/* Instruction popup styling */
+.instruction-popup {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.instruction-popup h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.instruction-popup p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+}
+
+/* Volume control styling */
+.volume-controls {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+}
+
+.volume-control {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.volume-control label {
+    display: block;
+    color: deeppink;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.volume-control input[type="range"] {
+    width: 200px;
+    margin: 0 10px;
+}
+
+.volume-control span {
+    color: deeppink;
+    font-size: 1.1em;
+}
+
+/* Add specific styling for the music button if desired */
+#menuMusicButton {
+    background-color: #ff69b4;  
+}
+
+#menuMusicButton:hover {
+    background-color: #ff1493;
+}
+
+/* Modal styles for name input */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal h2 {
+    color: deeppink;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.modal p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+#playerNameInput {
+    width: 80%;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid lightpink;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+#playerNameInput:focus {
+    outline: none;
+    border-color: deeppink;
+}
+
+#playerNameInput.error {
+    animation: shake 0.5s;
+    border-color: red;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+}
+
+#submitNameButton {
+    background-color: deeppink;
+}
+
+#cancelNameButton {
+    background-color: #999;
+}
+
+/* Score submission styling */
+.score-submission {
+    margin: 20px 0;
+    text-align: center;
+}
+
+#nameInput {
+    width: 200px;
+    padding: 10px;
+    font-size: 1.2em;
+    border: 2px solid lightpink;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+#nameInput:focus {
+    outline: none;
+    border-color: deeppink;
+}
+
+#nameInput.error {
+    animation: shake 0.5s;
+    border-color: red;
+}
+
+#submitScoreButton {
+    background-color: deeppink;
+}
+
+#submitScoreButton:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Keep your existing shake animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}

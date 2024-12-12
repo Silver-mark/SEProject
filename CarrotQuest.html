@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrot Quest</title>
+    <link rel="stylesheet" href="CarrotQuest.css">
+</head>
+<!--
+    Carrot Quest - HTML Structure
+    A platform jumping game with multiple screens and menus
+    
+    File Structure:
+    1. Menu Screen (Default view)
+    2. Instructions Screen
+    3. High Score Screen
+    4. Game Over Screen
+    5. Pause Menu
+    6. Pause Instructions
+    7. Game Canvas
+    8. Background Video
+-->
+<body>
+    <!-- Main Menu - Initial game screen -->
+    <div id="menu_screen">
+        <h1 class="title">Carrot Quest</h1>
+        <button id="playButton">Play Game</button>
+        <button id="instructionButton">Instructions</button>
+        <button id="highScoreButton">High Scores</button>
+        <button id="menuMusicButton">Play Music</button>
+        <button id="exitButton">Exit Game</button>
+    </div>
+    <!-- Instructions - Game rules and controls -->
+    <div id="instruction_screen">
+        <h2>How to Play:</h2>
+        <p>Use the left and right arrow keys (or A and D) to move the rabbit.</p> 
+           <p>Collect carrots and avoid bombs!</p>
+        <button id="closeInstructionButton">Close</button>
+    </div>
+    <!-- High Scores - Display top player scores -->
+    <div id="highScore_screen">
+        <h2>High Scores:</h2>
+        <ul id="highScoresList">
+            <!-- High scores will be populated here -->
+        </ul>
+        <button id="closeHighScoreButton">Close</button>
+    </div>
+    <!-- Game Over - End game state -->
+    <div id="gameOverScreen">
+        <h2>Game Over</h2>
+        <p>Your Score: <span id="finalScore">0</span></p>
+        <div class="score-submission">
+            <input type="text" 
+                   id="nameInput" 
+                   maxlength="50" 
+                   placeholder="Enter your name"
+                   autocomplete="off">
+            <button id="submitScoreButton">Submit Score</button>
+        </div>
+        <button id="restartButton">Restart Game</button>
+        <button id="menuButton">Return to Menu</button>
+        <button id="exitGameOverButton">Exit Game</button>
+    </div>
+    <!-- Pause Menu - In-game pause screen -->
+    <div id="pauseMenu">
+        <h2>Game Paused</h2>
+        <div class="volume-controls">
+            <div class="volume-control">
+                <label for="backgroundVolume">Background Music Volume:</label>
+                <input type="range" id="backgroundVolume" min="0" max="100" value="10">
+                <span id="backgroundVolumeValue">10%</span>
+            </div>
+            <div class="volume-control">
+                <label for="bounceVolume">Bounce Sound Volume:</label>
+                <input type="range" id="bounceVolume" min="0" max="100" value="5">
+                <span id="bounceVolumeValue">5%</span>
+            </div>
+        </div>
+        <button id="continueButton">Continue Game</button>
+        <button id="pauseInstructionButton">Instructions</button>
+        <button id="pauseMenuButton">Return to Menu</button>
+    </div>
+    <!-- Pause Instructions - In-game help -->
+    <div id="pauseInstructionScreen">
+        <div class="instruction-popup">
+            <h2>How to Play:</h2>
+            <p>Use the left and right arrow keys (or A and D) to move the rabbit.</p> 
+                <p>Collect carrots and avoid bombs!</p>
+            <button id="closePauseInstructionButton">Close</button>
+        </div>
+    </div>
+    <!-- Game Canvas - Main game rendering area -->
+    <canvas id="board"></canvas>
+	    <!-- Background Video - Animated background -->
+	<video autoplay muted loop id="backgroundVideo">
+    <source src="./CarrotQuestBackground.mp4" type="video/mp4">
+	</video>
+	    <!-- Game Logic Script -->
+    <script src="CarrotQuest.js"></script>
+</body>
+</html>
