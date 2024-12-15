@@ -622,58 +622,87 @@ document.getElementById("nameInput").addEventListener("keypress", function(e) {
     }
 });
 
-function submitScore() {
-    const playerName = document.getElementById("nameInput").value;
-    const score = parseInt(document.getElementById("scoreDisplay").textContent, 10);
+document.getElementById("submitScoreButton").addEventListener("click", function() {
+    submitScore();
+});
 
+function submitScore() {
+    const nameInput = document.getElementById("nameInput");
+    const playerName = nameInput.value.trim();
+    
     if (!playerName) {
         alert("Please enter a name");
+        nameInput.focus();
         return;
     }
+
+    if (playerName.length > 20) {
+        alert("Name must be 20 characters or less");
+        nameInput.focus();
+        return;
+    }
+
+    const scoreData = {
+        playerName: playerName,
+        score: score
+    };
 
     fetch('talker.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            playerName: playerName,
-            score: score
-        })
+        body: JSON.stringify(scoreData)
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert("Score submitted successfully!");
-            document.getElementById("nameInput").value = "";
-            getHighScores();
+            nameInput.value = "";
+            loadHighScores();
+            returnToMenu();
         } else {
             alert("Error submitting score: " + (data.message || "Unknown error"));
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert("An error occurred. Please try again.");
+        alert("An error occurred while submitting your score. Please try again.");
     });
 }
 
-function getHighScores() {
+function loadHighScores() {
+    const highScoresList = document.getElementById("highScoresList");
+    highScoresList.innerHTML = "Loading scores...";
+
     fetch('talker.php')
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            const scoresHtml = data.scores.map(score => 
-                `<li>${score.playerName}: ${score.playerScore}</li>`
-            ).join('');
-            document.getElementById("highScores").innerHTML = `<ol>${scoresHtml}</ol>`;
-        } else {
-            document.getElementById("highScores").innerHTML = "Error loading high scores.";
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById("highScores").innerHTML = "Error loading high scores.";
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.scores.length > 0) {
+                const scoresHtml = data.scores.map((score, index) => 
+                    `<li>
+                        ${index + 1}. ${score.playerName} - ${score.playerScore}
+                    </li>`
+                ).join('');
+                highScoresList.innerHTML = scoresHtml;
+            } else {
+                highScoresList.innerHTML = "<li>No scores available yet!</li>";
+            }
+        })
+        .catch(error => {
+            console.error('Error loading scores:', error);
+            highScoresList.innerHTML = "<li>Error loading high scores. Please try again later.</li>";
+        });
+}
+
+// safely escape HTML
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 // Call this function when the page loads to display initial high scores

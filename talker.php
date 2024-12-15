@@ -1,5 +1,7 @@
 <?php
-$servername = "localhost:5000";
+header('Content-Type: application/json');
+
+$servername = "localhost";
 $username = "root";
 $password = "1234";
 $dbname = "carrotscores";
@@ -9,12 +11,15 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode([
+        'success' => false, 
+        'message' => "Connection failed: " . $conn->connect_error
+    ]));
 }
 
 function insert($playerName, $score) {
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO carrotscores.scores (playerName, playerScore) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO scores (playerName, playerScore) VALUES (?, ?)");
     $stmt->bind_param("si", $playerName, $score);
     $result = $stmt->execute();
     $stmt->close();
@@ -23,12 +28,11 @@ function insert($playerName, $score) {
 
 function scoreReturn() {
     global $conn;
-    $sql = "SELECT playerName, playerScore FROM carrotscores.scores ORDER BY playerScore DESC LIMIT 10";
+    $sql = "SELECT playerName, playerScore FROM scores ORDER BY playerScore DESC LIMIT 10";
     $result = $conn->query($sql);
-
+    
     $scores = array();
-
-    if ($result->num_rows > 0) {
+    if ($result && $result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $scores[] = $row;
         }
